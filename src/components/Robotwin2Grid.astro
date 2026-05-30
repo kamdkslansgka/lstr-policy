@@ -1,0 +1,51 @@
+---
+const prefix = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const tasks = [
+  ["Adjust Bottle", "adjust_bottle/episode39.mp4"],
+  ["Beat Block Hammer", "beat_block_hammer/episode9.mp4"],
+  ["Click Alarmclock", "click_alarmclock/episode46.mp4"],
+  ["Click Bell", "click_bell/episode28.mp4"],
+  ["Dump Bin Bigbin", "dump_bin_bigbin/episode36.mp4"],
+  ["Handover Block", "handover_block/episode60.mp4"],
+  ["Lift Pot", "lift_pot/episode68.mp4"],
+  ["Move Can Pot", "move_can_pot/episode3.mp4"],
+  ["Move Playingcard Away", "move_playingcard_away/episode34.mp4"],
+  ["Open Laptop", "open_laptop/episode19.mp4"],
+  ["Pick Diverse Bottles", "pick_diverse_bottles/episode46.mp4"],
+  ["Pick Dual Bottles", "pick_dual_bottles/episode1.mp4"],
+  ["Place Bread Basket", "place_bread_basket/episode18.mp4"],
+  ["Place Burger Fries", "place_burger_fries/episode2.mp4"],
+  ["Place Empty Cup", "place_empty_cup/episode20.mp4"],
+  ["Place Object Basket", "place_object_basket/episode6.mp4"],
+  ["Press Stapler", "press_stapler/episode0.mp4"],
+  ["Put Object Cabinet", "put_object_cabinet/episode18.mp4"],
+  ["Shake Bottle Horiz.", "shake_bottle_horizontally/episode35.mp4"],
+  ["Stack Bowls Three", "stack_bowls_three/episode7.mp4"],
+  ["Stamp Seal", "stamp_seal/episode13.mp4"],
+  ["Turn Switch", "turn_switch/episode6.mp4"],
+];
+---
+
+<div
+  class="not-prose mx-auto grid max-w-[86rem] grid-cols-1 gap-4 px-6 sm:grid-cols-2 lg:grid-cols-3"
+>
+  {
+    tasks.map(([label, path]) => (
+      <figure class="overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
+        <video
+          src={`${prefix}/videos/robotwin2/${path}`}
+          class="aspect-video w-full bg-zinc-100 object-cover dark:bg-zinc-800"
+          controls
+          loop
+          muted
+          playsinline
+          preload="metadata"
+        />
+        <figcaption class="px-3 py-2 text-center text-sm font-medium text-zinc-700 dark:text-zinc-200">
+          {label}
+        </figcaption>
+      </figure>
+    ))
+  }
+</div>

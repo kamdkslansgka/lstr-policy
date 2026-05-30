@@ -1,0 +1,212 @@
+---
+title: "LSTR: Latent Spectral and Action Trajectory Regularization for Visually Robust Flow-based Visuomotor Policy"
+authors:
+  - name: "YuRan Chen"
+    institution: "Anhui University of Science and Technology"
+conference: "Preprint"
+theme: device
+favicon: favicon.svg
+description: "Project page for LSTR, a latent spectral and action trajectory regularization framework for visually robust flow-based visuomotor policies."
+thumbnail: image/final_chart.png
+---
+
+import HighlightedSection from "./components/HighlightedSection.astro";
+import Figure from "./components/Figure.astro";
+import Wide from "./components/Wide.astro";
+import Robotwin2Grid from "./components/Robotwin2Grid.astro";
+
+<HighlightedSection>
+
+## Abstract
+
+Visual imitation learning enables robots to acquire manipulation skills from expert demonstrations, but learned policies often struggle under visually diverse conditions, such as changes in object layout, background, lighting, and camera viewpoint. We argue that this difficulty mainly arises from three coupled aspects. First, standard flow-based visuomotor policies may learn visually weak action generators: although they produce smooth and plausible trajectories, their actions can be insufficiently modulated by task-relevant visual changes. Second, the low-frequency dominance of robot action trajectories enables efficient generation, but may also encourage dataset-specific spectral shortcuts and unstable latent representations across flow timesteps. Third, endpoint-level velocity matching does not explicitly constrain the action-flow trajectory induced by predicted endpoints, allowing a plausible endpoint to still produce a trajectory that deviates from the expert action flow.
+
+To address these challenges, we propose **Latent Spectral and Action Trajectory Regularization (LSTR)**, a training framework for robust flow-based visuomotor policy learning under visual randomization. LSTR improves the action generation process from both latent spectral and action-flow trajectory perspectives. At the latent level, **Latent Frequency Masking (LFM)** perturbs intermediate transformer tokens in the frequency domain to reduce over-reliance on narrow spectral templates, while **Adaptive Latent Frequency Consistency (LFC)** enforces spectral stability between latent states sampled from the same expert action flow. At the trajectory level, **Action Trajectory Matching (ATM)** compares the action-flow trajectories induced by student-predicted and expert endpoints with an exponential moving average (EMA) policy, providing a trajectory-level correction signal for self-correction. LSTR is compatible with standard flow matching, consistency-based policies, and single-step action generation, while introducing no additional inference cost.
+
+</HighlightedSection>
+
+## Motivation
+
+Fast flow-based visuomotor policies can generate smooth action trajectories with one or a few inference steps, which makes them attractive for real-time robot control. However, smoothness and speed do not guarantee visual robustness. Under visual randomization, a policy may still output plausible actions while failing to adapt to task-relevant changes in object position, lighting, background, or camera viewpoint.
+
+LSTR starts from the observation that this fragility is not fully captured by output-level action error. It is also tied to how a policy organizes its internal action-flow representations under visual conditioning.
+
+<Wide>
+  <Figure>
+    <div slot="figure" className="not-prose grid w-full grid-cols-1 items-stretch gap-4 md:grid-cols-2">
+      <div className="flex aspect-[16/9] items-center justify-center rounded-lg border border-gray-200 bg-white p-2 shadow-sm">
+        <img src="/lstr-policy/image/motivation_image_only_response.png" alt="Image-only counterfactual response under fixed proprioception" className="h-full w-full object-contain" />
+      </div>
+      <div className="flex aspect-[16/9] items-center justify-center rounded-lg border border-gray-200 bg-white p-2 shadow-sm">
+        <img src="/lstr-policy/image/motivation_latent_spectrum_collapse.png" alt="Baseline latent spectrum collapse and LSTR richer latent spectra" className="h-full w-full object-contain" />
+      </div>
+      <div className="flex aspect-[16/9] items-center justify-center rounded-lg border border-gray-200 bg-white p-2 shadow-sm">
+        <img src="/lstr-policy/image/motivation_latent_frequency_robustness_gain.png" alt="Latent frequency masking robustness under low- and high-frequency latent removal" className="h-full w-full object-contain" />
+      </div>
+      <div className="flex aspect-[16/9] items-center justify-center rounded-lg border border-gray-200 bg-white p-2 shadow-sm">
+        <img src="/lstr-policy/image/motivation_lfc_stability.png" alt="Latent frequency consistency across flow time" className="h-full w-full object-contain" />
+      </div>
+    </div>
+    <Fragment slot="caption">**Motivation evidence.** The selected figures show four signals behind LSTR: stronger image-conditioned action response, reduced low-frequency latent collapse, improved robustness to latent frequency removal, and smaller cross-flow-time spectral drift.</Fragment>
+  </Figure>
+</Wide>
+
+## Key Findings
+
+- **Weak visual modulation.** With fixed robot state and sampling noise, changing only the image observation can induce relatively small action changes, suggesting that the action generator is not sufficiently grounded in visual inputs.
+- **Latent spectral shortcut and drift.** Intermediate transformer tokens concentrate on low-frequency temporal components and can drift across flow timesteps, revealing unstable internal action semantics.
+- **Endpoint-induced trajectory deviation.** Endpoint-level velocity matching does not explicitly constrain the action-flow route induced by a predicted endpoint, so visually perturbed endpoints can be amplified into trajectory-level deviations.
+
+## Benchmark Results
+
+<Wide>
+  <Figure>
+    <img slot="figure" src="/lstr-policy/image/final_chart.png" alt="Performance comparison across benchmarks" className="w-full rounded-lg shadow-sm border border-gray-200" />
+    <Fragment slot="caption">**Experimental summary.** The figure is generated from the current LSTR manuscript tables: main simulation averages and RoboTwin 2.0 clean/randomized protocols. Different protocols are shown in separate panels rather than collapsed into a single aggregate.</Fragment>
+  </Figure>
+</Wide>
+
+## RoboTwin 2.0 Demonstrations
+
+<Robotwin2Grid />
+
+## Method
+
+LSTR is built on a flow-based visuomotor policy with a DiTX transformer backbone. The base policy takes visual observations, proprioceptive states, a noisy action trajectory, and flow timesteps as inputs, then predicts the action velocity used to recover the final action endpoint. LSTR keeps the same inference architecture and adds training-time regularization at two complementary levels.
+
+<Wide>
+  <Figure>
+    <img slot="figure" src="/lstr-policy/image/last.png" alt="LSTR method overview" className="w-full rounded-lg shadow-sm border border-gray-200" />
+    <Fragment slot="caption">**Method overview.** LFM and LFC regularize checkpoint latent spectra, while ATM regularizes the student-predicted endpoint through an EMA-guided action-flow route comparison.</Fragment>
+  </Figure>
+</Wide>
+
+### Latent Frequency Masking
+
+Latent Frequency Masking (LFM) perturbs intermediate transformer tokens in the frequency domain during training. Given checkpoint latent tokens $h^\ell \in \mathbb{R}^{B \times H \times D}$, LFM applies a one-dimensional DCT along the action-horizon dimension, removes a stochastic low- or high-frequency band, and reconstructs the perturbed latent tokens:
+
+$$
+\tilde{h}^\ell =
+\mathcal{D}^{-1}
+\left(
+M \odot \mathcal{D}(h^\ell)
+\right).
+$$
+
+The downstream transformer blocks must predict reliable velocities from spectrally incomplete internal evidence. This discourages reliance on narrow motion templates and encourages visually grounded, frequency-redundant action representations. LFM is removed during inference.
+
+### Adaptive Latent Frequency Consistency
+
+Adaptive Latent Frequency Consistency (LFC) stabilizes the latent representation across flow timesteps from the same expert action flow. For two timesteps $t_a$ and $t_b$, LFC extracts clean pre-checkpoint latent states $u_a^m$ and $u_b^m$, transforms them into the frequency domain, and penalizes weighted spectral discrepancy:
+
+$$
+\mathcal{L}_{\mathrm{LFC}}
+=
+\mathbb{E}_{b,k,d}
+\left[
+w_{b,k,d}
+\left(
+z_{a,b,k,d}^{m}
+-
+z_{b,b,k,d}^{m}
+\right)^2
+\right].
+$$
+
+The adaptive weight emphasizes unstable spectral components while retaining useful high-frequency variation for contact-rich manipulation.
+
+### Action Trajectory Matching
+
+Action Trajectory Matching (ATM) constrains the action-flow route induced by the predicted endpoint. It re-projects the student-predicted endpoint and expert endpoint to an intermediate flow state using the same initial noise, then uses an EMA policy to evaluate whether the two routes recover consistent endpoints:
+
+$$
+\Delta_{\mathrm{ATM}}
+=
+a_{\mathrm{fake}}^{\mathrm{EMA}}
+-
+a_{\mathrm{real}}^{\mathrm{EMA}}.
+$$
+
+ATM converts this route-level gap into a stop-gradient correction target:
+
+$$
+a_{\mathrm{ATM}}^{\mathrm{tar}}
+=
+\mathrm{sg}
+\left(
+\hat{a}
+-
+\lambda_{\mathrm{ATM}}\bar{\Delta}_{\mathrm{ATM}}
+\right),
+\quad
+\mathcal{L}_{\mathrm{ATM}}
+=
+\left\|
+\hat{a}
+-
+a_{\mathrm{ATM}}^{\mathrm{tar}}
+\right\|_2^2 .
+$$
+
+ATM provides a trajectory-level self-correction signal during training without back-propagating through the EMA policy and without adding inference cost.
+
+## Training Objective
+
+The final objective combines flow matching, consistency training, latent frequency consistency, and action trajectory matching:
+
+$$
+\mathcal{L}_{\rm Total}
+=
+\mathcal{L}_{\rm FM}
++
+\mathcal{L}_{\rm CT}
++
+\lambda_{\rm lfc}\alpha_{\rm curr}\mathcal{L}_{\rm LFC}
++
+\lambda_{\rm atm}\beta_{\rm curr}\mathcal{L}_{\rm ATM}.
+$$
+
+Each mini-batch is divided into a flow branch and a consistency training branch. LFM, LFC, and ATM regularize the flow branch, while the consistency branch uses the EMA policy as a stable teacher and is trained without latent frequency masking.
+
+## Contributions
+
+- We diagnose three failure patterns of fast flow-based visuomotor policies under visual randomization: weak image-only response, latent spectral shortcut and drift, and endpoint-induced action-flow trajectory deviation.
+- We propose latent spectral regularization with LFM and LFC to improve spectral robustness and stabilize latent action representations across flow timesteps.
+- We introduce ATM, an EMA-guided action-flow trajectory regularization mechanism that reduces the gap between student-predicted and expert-induced flow routes without increasing inference cost.
+
+## Inference
+
+At inference time, all training-only components are removed, including LFM, LFC, ATM, and the EMA teacher. LSTR follows the same sampling procedure as the base flow policy:
+
+$$
+x^{i+1}
+=
+x^i
++
+\Delta t\,
+v_\theta(x^i,t_i,\tau_i,c),
+\quad
+i=0,\dots,N-1.
+$$
+
+For single-step generation, $N=1$:
+
+$$
+x^1
+=
+x^0
++
+v_\theta(x^0,0,1,c).
+$$
+
+Thus, LSTR keeps the same inference architecture, number of function evaluations, and sampling cost as the base flow policy.
+
+## BibTeX
+
+```bibtex
+@misc{chen2026lstr,
+  title = {LSTR: Latent Spectral and Action Trajectory Regularization for Visually Robust Flow-based Visuomotor Policy},
+  author = {Chen, YuRan},
+  year = {2026}
+}
+```

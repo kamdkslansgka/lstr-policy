@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200">
+<rect width="1800" height="1200" fill="#ffffff"/>
+<g font-family="Arial, Helvetica, sans-serif">
+<text x="150" y="68" font-size="38" font-weight="850" fill="#111827" text-anchor="start">Main benchmarks</text>
+<rect x="540" y="46" width="30" height="18" rx="3" ry="3" fill="#4E79A7"/>
+<text x="582" y="64" font-size="24" font-weight="400" fill="#111827" text-anchor="start">DP / 10 NFE</text>
+<rect x="785" y="46" width="30" height="18" rx="3" ry="3" fill="#59A14F"/>
+<text x="827" y="64" font-size="24" font-weight="400" fill="#111827" text-anchor="start">FMP / 10 NFE</text>
+<rect x="1030" y="46" width="30" height="18" rx="3" ry="3" fill="#F28E2B"/>
+<text x="1072" y="64" font-size="24" font-weight="400" fill="#111827" text-anchor="start">ManiFlow / 10 NFE</text>
+<rect x="1350" y="46" width="30" height="18" rx="3" ry="3" fill="#E15759"/>
+<text x="1392" y="64" font-size="24" font-weight="400" fill="#111827" text-anchor="start">LSTR / 1 NFE</text>
+<line x1="150" y1="540.0" x2="1730" y2="540.0" stroke="#DFE5EF" stroke-width="2"/>
+<text x="130" y="548.0" font-size="24" font-weight="400" fill="#4B5563" text-anchor="end">0</text>
+<line x1="150" y1="461.0" x2="1730" y2="461.0" stroke="#DFE5EF" stroke-width="2"/>
+<text x="130" y="469.0" font-size="24" font-weight="400" fill="#4B5563" text-anchor="end">20</text>
+<line x1="150" y1="382.0" x2="1730" y2="382.0" stroke="#DFE5EF" stroke-width="2"/>
+<text x="130" y="390.0" font-size="24" font-weight="400" fill="#4B5563" text-anchor="end">40</text>
+<line x1="150" y1="303.0" x2="1730" y2="303.0" stroke="#DFE5EF" stroke-width="2"/>
+<text x="130" y="311.0" font-size="24" font-weight="400" fill="#4B5563" text-anchor="end">60</text>
+<line x1="150" y1="224.0" x2="1730" y2="224.0" stroke="#DFE5EF" stroke-width="2"/>
+<text x="130" y="232.0" font-size="24" font-weight="400" fill="#4B5563" text-anchor="end">80</text>
+<line x1="150" y1="145.0" x2="1730" y2="145.0" stroke="#DFE5EF" stroke-width="2"/>
+<text x="130" y="153.0" font-size="24" font-weight="400" fill="#4B5563" text-anchor="end">100</text>
+<line x1="150" y1="145" x2="150" y2="540" stroke="#7A8798" stroke-width="2.5"/>
+<line x1="150" y1="540" x2="1730" y2="540" stroke="#7A8798" stroke-width="2.5"/>
+<text x="55" y="342.5" font-size="28" font-weight="700" fill="#4B5563" text-anchor="middle" transform="rotate(-90 55 342.5)">Success rate (%)</text>
+<rect x="196.5" y="389.5" width="62" height="150.5" rx="4" ry="4" fill="#4E79A7"/>
+<text x="227.5" y="379.5" font-size="22" font-weight="700" fill="#4E79A7" text-anchor="middle">38.1</text>
+<rect x="276.5" y="385.95" width="62" height="154.05" rx="4" ry="4" fill="#59A14F"/>
+<text x="307.5" y="375.95" font-size="22" font-weight="700" fill="#59A14F" text-anchor="middle">39.0</text>
+<rect x="356.5" y="246.51" width="62" height="293.49" rx="4" ry="4" fill="#F28E2B"/>
+<text x="387.5" y="236.51" font-size="22" font-weight="700" fill="#F28E2B" text-anchor="middle">74.3</text>
+<rect x="436.5" y="230.72" width="62" height="309.28" rx="4" ry="4" fill="#E15759" stroke="#9F1239" stroke-width="3"/>
+<text x="467.5" y="220.72" font-size="22" font-weight="700" fill="#E15759" text-anchor="middle">78.3</text>
+<text x="347.5" y="592" font-size="29" font-weight="800" fill="#111827" text-anchor="middle">Adroit</text>
+<rect x="591.5" y="328.28" width="62" height="211.72" rx="4" ry="4" fill="#4E79A7"/>
+<text x="622.5" y="318.28" font-size="22" font-weight="700" fill="#4E79A7" text-anchor="middle">53.6</text>
+<rect x="671.5" y="329.47" width="62" height="210.53" rx="4" ry="4" fill="#59A14F"/>
+<text x="702.5" y="319.47" font-size="22" font-weight="700" fill="#59A14F" text-anchor="middle">53.3</text>
+<rect x="751.5" y="317.62" width="62" height="222.38" rx="4" ry="4" fill="#F28E2B"/>
+<text x="782.5" y="307.62" font-size="22" font-weight="700" fill="#F28E2B" text-anchor="middle">56.3</text>
+<rect x="831.5" y="284.04" width="62" height="255.96" rx="4" ry="4" fill="#E15759" stroke="#9F1239" stroke-width="3"/>
+<text x="862.5" y="274.04" font-size="22" font-weight="700" fill="#E15759" text-anchor="middle">64.8</text>
+<text x="742.5" y="592" font-size="29" font-weight="800" fill="#111827" text-anchor="middle">DexArt</text>
+<rect x="986.5" y="426.24" width="62" height="113.76" rx="4" ry="4" fill="#4E79A7"/>
+<text x="1017.5" y="416.24" font-size="22" font-weight="700" fill="#4E79A7" text-anchor="middle">28.8</text>
+<rect x="1066.5" y="432.95" width="62" height="107.05" rx="4" ry="4" fill="#59A14F"/>
+<text x="1097.5" y="422.95" font-size="22" font-weight="700" fill="#59A14F" text-anchor="middle">27.1</text>
+<rect x="1146.5" y="357.9" width="62" height="182.1" rx="4" ry="4" fill="#F28E2B"/>
+<text x="1177.5" y="347.9" font-size="22" font-weight="700" fill="#F28E2B" text-anchor="middle">46.1</text>
+<rect x="1226.5" y="303.79" width="62" height="236.21" rx="4" ry="4" fill="#E15759" stroke="#9F1239" stroke-width="3"/>
+<text x="1257.5" y="293.79" font-size="22" font-weight="700" fill="#E15759" text-anchor="middle">59.8</text>
+<text x="1137.5" y="592" font-size="29" font-weight="800" fill="#111827" text-anchor="middle">RoboTwin 1.0</text>
+<rect x="1381.5" y="384.37" width="62" height="155.63" rx="4" ry="4" fill="#4E79A7"/>
+<text x="1412.5" y="374.37" font-size="22" font-weight="700" fill="#4E79A7" text-anchor="middle">39.4</text>
+<rect x="1461.5" y="386.74" width="62" height="153.26" rx="4" ry="4" fill="#59A14F"/>
+<text x="1492.5" y="376.74" font-size="22" font-weight="700" fill="#59A14F" text-anchor="middle">38.8</text>
+<rect x="1541.5" y="316.83" width="62" height="223.17" rx="4" ry="4" fill="#F28E2B"/>
+<text x="1572.5" y="306.83" font-size="22" font-weight="700" fill="#F28E2B" text-anchor="middle">56.5</text>
+<rect x="1621.5" y="282.06" width="62" height="257.94" rx="4" ry="4" fill="#E15759" stroke="#9F1239" stroke-width="3"/>
+<text x="1652.5" y="272.06" font-size="22" font-weight="700" fill="#E15759" text-anchor="middle">65.3</text>
+<text x="1532.5" y="592" font-size="29" font-weight="800" fill="#111827" text-anchor="middle">Overall</text>
+<text x="150" y="660" font-size="38" font-weight="850" fill="#111827" text-anchor="start">RoboTwin 2.0</text>
+<line x1="150" y1="1050.0" x2="1730" y2="1050.0" stroke="#DFE5EF" stroke-width="2"/>
+<text x="130" y="1058.0" font-size="24" font-weight="400" fill="#4B5563" text-anchor="end">0</text>
+<line x1="150" y1="985.0" x2="1730" y2="985.0" stroke="#DFE5EF" stroke-width="2"/>
+<text x="130" y="993.0" font-size="24" font-weight="400" fill="#4B5563" text-anchor="end">20</text>
+<line x1="150" y1="920.0" x2="1730" y2="920.0" stroke="#DFE5EF" stroke-width="2"/>
+<text x="130" y="928.0" font-size="24" font-weight="400" fill="#4B5563" text-anchor="end">40</text>
+<line x1="150" y1="855.0" x2="1730" y2="855.0" stroke="#DFE5EF" stroke-width="2"/>
+<text x="130" y="863.0" font-size="24" font-weight="400" fill="#4B5563" text-anchor="end">60</text>
+<line x1="150" y1="790.0" x2="1730" y2="790.0" stroke="#DFE5EF" stroke-width="2"/>
+<text x="130" y="798.0" font-size="24" font-weight="400" fill="#4B5563" text-anchor="end">80</text>
+<line x1="150" y1="725.0" x2="1730" y2="725.0" stroke="#DFE5EF" stroke-width="2"/>
+<text x="130" y="733.0" font-size="24" font-weight="400" fill="#4B5563" text-anchor="end">100</text>
+<line x1="150" y1="725" x2="150" y2="1050" stroke="#7A8798" stroke-width="2.5"/>
+<line x1="150" y1="1050" x2="1730" y2="1050" stroke="#7A8798" stroke-width="2.5"/>
+<text x="55" y="887.5" font-size="28" font-weight="700" fill="#4B5563" text-anchor="middle" transform="rotate(-90 55 887.5)">Success rate (%)</text>
+<rect x="455.8" y="922.27" width="66" height="127.73" rx="4" ry="4" fill="#4E79A7"/>
+<text x="488.8" y="912.27" font-size="22" font-weight="700" fill="#4E79A7" text-anchor="middle">39.3</text>
+<text x="488.8" y="1095" font-size="23" font-weight="700" fill="#111827" text-anchor="middle">DP</text>
+<rect x="547.8" y="915.77" width="66" height="134.23" rx="4" ry="4" fill="#9C755F"/>
+<text x="580.8" y="905.77" font-size="22" font-weight="700" fill="#9C755F" text-anchor="middle">41.3</text>
+<text x="580.8" y="1095" font-size="23" font-weight="700" fill="#111827" text-anchor="middle">ACT</text>
+<rect x="639.8" y="890.42" width="66" height="159.58" rx="4" ry="4" fill="#8CD17D"/>
+<text x="672.8" y="880.42" font-size="22" font-weight="700" fill="#8CD17D" text-anchor="middle">49.1</text>
+<text x="672.8" y="1095" font-size="23" font-weight="700" fill="#111827" text-anchor="middle">RDT</text>
+<rect x="731.8" y="874.83" width="66" height="175.17" rx="4" ry="4" fill="#B07AA1"/>
+<text x="764.8" y="864.83" font-size="22" font-weight="700" fill="#B07AA1" text-anchor="middle">53.9</text>
+<text x="764.8" y="1095" font-size="23" font-weight="700" fill="#111827" text-anchor="middle">pi0</text>
+<rect x="823.8" y="852.73" width="66" height="197.27" rx="4" ry="4" fill="#76B7B2"/>
+<text x="856.8" y="842.73" font-size="22" font-weight="700" fill="#76B7B2" text-anchor="middle">60.7</text>
+<text x="856.8" y="1095" font-size="23" font-weight="700" fill="#111827" text-anchor="middle">UP-VLA</text>
+<rect x="915.8" y="813.07" width="66" height="236.93" rx="4" ry="4" fill="#E15759" stroke="#9F1239" stroke-width="3"/>
+<text x="948.8" y="803.07" font-size="22" font-weight="700" fill="#E15759" text-anchor="middle">72.9</text>
+<text x="948.8" y="1095" font-size="23" font-weight="700" fill="#111827" text-anchor="middle">LSTR</text>
+<rect x="1340.6" y="957.38" width="78" height="92.62" rx="4" ry="4" fill="#F28E2B"/>
+<text x="1379.6" y="947.38" font-size="22" font-weight="700" fill="#F28E2B" text-anchor="middle">28.5</text>
+<text x="1379.6" y="1095" font-size="23" font-weight="700" fill="#111827" text-anchor="middle">ManiFlow</text>
+<rect x="1472.6" y="927.15" width="78" height="122.85" rx="4" ry="4" fill="#E15759" stroke="#9F1239" stroke-width="3"/>
+<text x="1511.6" y="917.15" font-size="22" font-weight="700" fill="#E15759" text-anchor="middle">37.8</text>
+<text x="1511.6" y="1095" font-size="23" font-weight="700" fill="#111827" text-anchor="middle">LSTR</text>
+<text x="718.8" y="1142" font-size="28" font-weight="800" fill="#111827" text-anchor="middle">demo_clean</text>
+<text x="1445.6" y="1142" font-size="28" font-weight="800" fill="#111827" text-anchor="middle">demo_randomized</text>
+<line x1="1161.2" y1="697" x2="1161.2" y2="1112" stroke="#DFE5EF" stroke-width="2.5"/>
+</g></svg>
