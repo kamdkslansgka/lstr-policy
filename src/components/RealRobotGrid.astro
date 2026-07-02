@@ -1,0 +1,313 @@
+---
+const prefix = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+type VideoItem = {
+  label: string;
+  path: string;
+};
+
+type Condition = {
+  label: string;
+  note?: string;
+  combinedVideo?: VideoItem;
+  videos: VideoItem[];
+};
+
+type MethodGroup = {
+  name: string;
+  conditions: Condition[];
+};
+
+type Task = {
+  title: string;
+  videoBase: string;
+  description?: string;
+  image?: {
+    src: string;
+    alt: string;
+    caption: string;
+  };
+  methods: MethodGroup[];
+};
+
+const tasks: Task[] = [
+  {
+    title: "Grasp Bottle",
+    videoBase: "grasp_bottle",
+    image: {
+      src: "image/real_robot/grasp_bottle_sets.png",
+      alt: "Training and test bottle sets for the real-world grasp bottle task",
+      caption:
+        "Compared with the baseline method, LSTR achieves higher success rates on most real-world tasks and produces smoother behaviors. The advantage is especially clear under unseen objects, background changes such as lighting and surrounding-object variations, and occlusion.",
+    },
+    methods: [
+      {
+        name: "Baseline",
+        conditions: [
+          {
+            label: "Seen Bottle",
+            videos: [
+              { label: "Trial 1", path: "baseline_train_bottle.mp4" },
+              { label: "Trial 2", path: "baseline_seen_02.mp4" },
+              { label: "Trial 3", path: "baseline_seen_03.mp4" },
+              { label: "Trial 4", path: "baseline_seen_04.mp4" },
+              { label: "Trial 5", path: "baseline_seen_05.mp4" },
+            ],
+          },
+          {
+            label: "Unseen Medium Bottle",
+            videos: [
+              { label: "Trial 1", path: "baseline_unseen_medium_bottle.mp4" },
+              { label: "Trial 2", path: "baseline_unseen_medium_02.mp4" },
+            ],
+          },
+          {
+            label: "Unseen Small Bottle",
+            videos: [
+              { label: "Trial 1", path: "baseline_unseen_small_01.mp4" },
+            ],
+          },
+          {
+            label: "Background Change",
+            videos: [
+              { label: "Trial 1", path: "baseline_background_change.mp4" },
+              { label: "Trial 2", path: "baseline_background_change_02.mp4" },
+            ],
+          },
+          {
+            label: "Occlusion",
+            combinedVideo: {
+              label: "Trial 1 + Trial 2",
+              path: "baseline_occlusion_combined.mp4",
+            },
+            videos: [
+              { label: "Trial 1", path: "baseline_occlusion_01.mp4" },
+              { label: "Trial 2", path: "baseline_occlusion_02.mp4" },
+            ],
+          },
+        ],
+      },
+      {
+        name: "LSTR",
+        conditions: [
+          {
+            label: "Seen Bottle",
+            videos: [
+              { label: "Trial 1", path: "ours_train_bottle.mp4" },
+              { label: "Trial 2", path: "ours_seen_02.mp4" },
+              { label: "Trial 3", path: "ours_seen_03.mp4" },
+              { label: "Trial 4", path: "ours_seen_04.mp4" },
+              { label: "Trial 5", path: "ours_seen_05.mp4" },
+            ],
+          },
+          {
+            label: "Unseen Medium Bottle",
+            videos: [
+              { label: "Trial 1", path: "ours_unseen_medium_bottle.mp4" },
+              { label: "Trial 2", path: "ours_unseen_medium_02.mp4" },
+              { label: "Trial 3", path: "ours_unseen_medium_03.mp4" },
+            ],
+          },
+          {
+            label: "Unseen Small Bottle",
+            videos: [
+              { label: "Trial 1", path: "ours_unseen_small_01.mp4" },
+              { label: "Trial 2", path: "ours_unseen_small_02.mp4" },
+              { label: "Trial 3", path: "ours_unseen_small_03.mp4" },
+            ],
+          },
+          {
+            label: "Unseen Large Bottle",
+            videos: [{ label: "Trial 1", path: "ours_unseen_large_01.mp4" }],
+          },
+          {
+            label: "Background Change",
+            videos: [
+              { label: "Trial 1", path: "ours_background_change.mp4" },
+              { label: "Trial 2", path: "ours_background_change_02.mp4" },
+            ],
+          },
+          {
+            label: "Viewpoint / Occlusion",
+            combinedVideo: {
+              label: "Trial 1 + Trial 2",
+              path: "ours_occlusion_combined.mp4",
+            },
+            videos: [
+              { label: "Trial 1", path: "ours_occlusion_01.mp4" },
+              { label: "Trial 2", path: "ours_occlusion_02.mp4" },
+            ],
+          },
+          {
+            label: "Failure Case",
+            note: "Grasping small bottles is often more challenging because the training objects are biased toward larger bottles. As a result, the gripper opening learned from the demonstrations may not reliably secure unseen small bottles. Incorporating tactile feedback can directly address this limitation.",
+            videos: [{ label: "Trial 1", path: "ours_failure_01.mp4" }],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Stacking",
+    videoBase: "stacking",
+    description:
+      "DP has slower inference and a lower success rate, while both the baseline and LSTR use single-step inference. In the position and background generalization experiments, LSTR achieves much higher success rates. The gap is especially clear under background generalization, where the baseline can fail to release the gripper after stacking, while LSTR releases normally.",
+    methods: [
+      {
+        name: "DP",
+        conditions: [
+          {
+            label: "Real-World Trials",
+            videos: [
+              { label: "Trial 1", path: "dp_trial_01.mp4" },
+              { label: "Trial 2", path: "dp_trial_02.mp4" },
+            ],
+          },
+        ],
+      },
+      {
+        name: "Baseline",
+        conditions: [
+          {
+            label: "Position Generalization",
+            videos: [
+              { label: "Trial 1", path: "baseline_position_01.mp4" },
+              { label: "Trial 2", path: "baseline_position_02.mp4" },
+            ],
+          },
+          {
+            label: "Background Generalization",
+            videos: [
+              { label: "Trial 1", path: "baseline_background_01.mp4" },
+              { label: "Trial 2", path: "baseline_background_02.mp4" },
+            ],
+          },
+        ],
+      },
+      {
+        name: "LSTR",
+        conditions: [
+          {
+            label: "Position Generalization",
+            videos: [
+              { label: "Trial 1", path: "ours_position_01.mp4" },
+              { label: "Trial 2", path: "ours_position_02.mp4" },
+              { label: "Trial 3", path: "ours_position_03.mp4" },
+              { label: "Trial 4", path: "ours_position_04.mp4" },
+              { label: "Trial 5", path: "ours_position_05.mp4" },
+            ],
+          },
+          {
+            label: "Background Generalization",
+            videos: [
+              { label: "Trial 1", path: "ours_background_01.mp4" },
+              { label: "Trial 2", path: "ours_background_02.mp4" },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+];
+
+const countVideos = (conditions: Condition[]) =>
+  conditions.reduce((total, condition) => total + condition.videos.length, 0);
+---
+
+<div class="not-prose mx-auto max-w-[86rem] space-y-12 px-6">
+  {
+    tasks.map((task) => (
+      <section class="space-y-8">
+        <h3 class="text-center text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+          {task.title}
+        </h3>
+        {task.description && (
+          <p class="m-0 mx-auto max-w-3xl text-center text-sm leading-relaxed text-zinc-600 sm:text-base dark:text-zinc-300">
+            {task.description}
+          </p>
+        )}
+        {task.image && (
+          <figure class="mx-auto max-w-[54rem] overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
+            <img
+              src={`${prefix}/${task.image.src}`}
+              alt={task.image.alt}
+              class="w-full"
+              loading="lazy"
+            />
+            <figcaption class="px-5 py-4 text-center text-sm leading-relaxed text-zinc-600 sm:text-base dark:text-zinc-300">
+              {task.image.caption}
+            </figcaption>
+          </figure>
+        )}
+        {task.methods.map((method) => (
+          <section class="space-y-5">
+            <div class="flex flex-wrap items-baseline justify-between gap-2 border-b border-zinc-200 pb-2 dark:border-zinc-700">
+              <h4 class="m-0 text-xl font-bold text-zinc-900 dark:text-zinc-50">
+                {method.name}
+              </h4>
+              <span class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+                {countVideos(method.conditions)} videos
+              </span>
+            </div>
+            <div class="space-y-6">
+              {method.conditions.map((condition) => (
+                <section class="space-y-3 border-t border-zinc-100 pt-4 first:border-t-0 first:pt-0 dark:border-zinc-800">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <h5 class="m-0 text-base font-bold text-zinc-800 dark:text-zinc-100">
+                      {condition.label}
+                    </h5>
+                    <span class="text-xs font-medium tracking-wide text-zinc-500 uppercase dark:text-zinc-400">
+                      {condition.videos.length} clips
+                    </span>
+                  </div>
+                  {condition.note && (
+                    <p class="m-0 max-w-3xl text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                      {condition.note}
+                    </p>
+                  )}
+                  <div class="overflow-x-auto pb-3">
+                    {condition.combinedVideo ? (
+                      <figure class="w-[42rem] max-w-full overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
+                        <video
+                          src={`${prefix}/videos/real_robot/${task.videoBase}/${condition.combinedVideo.path}`}
+                          class="aspect-[32/9] w-full bg-zinc-950 object-contain"
+                          controls
+                          loop
+                          muted
+                          playsinline
+                          preload="metadata"
+                        />
+                        <figcaption class="px-2 py-2 text-center text-xs font-semibold text-zinc-700 dark:text-zinc-200">
+                          {condition.combinedVideo.label}
+                        </figcaption>
+                      </figure>
+                    ) : (
+                      <div class="flex gap-4">
+                        {condition.videos.map((video) => (
+                          <figure class="w-[12.5rem] shrink-0 overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm sm:w-[14rem] md:w-[15rem] dark:border-zinc-700 dark:bg-zinc-900">
+                            <video
+                              src={`${prefix}/videos/real_robot/${task.videoBase}/${video.path}`}
+                              class="aspect-[9/16] w-full bg-zinc-950 object-contain"
+                              controls
+                              loop
+                              muted
+                              playsinline
+                              preload="metadata"
+                            />
+                            <figcaption class="px-2 py-2 text-center text-xs font-semibold text-zinc-700 dark:text-zinc-200">
+                              {video.label}
+                            </figcaption>
+                          </figure>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </section>
+        ))}
+      </section>
+    ))
+  }
+</div>
