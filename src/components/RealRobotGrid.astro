@@ -30,6 +30,16 @@ type Task = {
   methods: MethodGroup[];
 };
 
+const makeTrialVideos = (base: string, count: number): VideoItem[] =>
+  Array.from({ length: count }, (_, index) => {
+    const trial = index + 1;
+
+    return {
+      label: `Trial ${trial}`,
+      path: `${base}_${String(trial).padStart(2, "0")}.mp4`,
+    };
+  });
+
 const tasks: Task[] = [
   {
     title: "Grasp Bottle",
@@ -142,6 +152,44 @@ const tasks: Task[] = [
             label: "Failure Case",
             note: "Grasping small bottles is often more challenging because the training objects are biased toward larger bottles. As a result, the gripper opening learned from the demonstrations may not reliably secure unseen small bottles. Incorporating tactile feedback can directly address this limitation.",
             videos: [{ label: "Trial 1", path: "ours_failure_01.mp4" }],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Object Sorting",
+    videoBase: "sorting",
+    image: {
+      src: "image/real_robot/object_sorting_task.jpg",
+      alt: "Object sorting task setup with white and green bottles and target boxes",
+      caption:
+        "Task setup. The white bottle should be placed into the left box, and the green bottle should be placed into the upper box. The training set contains only the two bottles shown in the image.",
+    },
+    methods: [
+      {
+        name: "Baseline",
+        conditions: [
+          {
+            label: "Seen Objects",
+            videos: makeTrialVideos("baseline_seen", 4),
+          },
+          {
+            label: "Unseen Objects",
+            videos: makeTrialVideos("baseline_unseen", 8),
+          },
+        ],
+      },
+      {
+        name: "LSTR",
+        conditions: [
+          {
+            label: "Seen Objects",
+            videos: makeTrialVideos("ours_seen", 5),
+          },
+          {
+            label: "Unseen Objects",
+            videos: makeTrialVideos("ours_unseen", 9),
           },
         ],
       },
