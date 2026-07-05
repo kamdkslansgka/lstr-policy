@@ -50,8 +50,8 @@ Options:
   --title        Paper title for src/paper.mdx
   --repo         GitHub repository name. Also used as Astro base path.
   --site         GitHub Pages origin. Default: ${defaultSite}
-  --author       First author name. Default: YuRan Chen
-  --institution  First author institution. Default: Anhui University of Science and Technology
+  --author       First author name. Default: Anonymous
+  --institution  First author institution. Default: Anonymous
   --conference   Conference or venue line. Default: Conference Name
   --description  Link preview description. Defaults to a generic project-page description.
 `);
@@ -297,9 +297,8 @@ async function main() {
     title: args.title || "New Paper Title",
     repo,
     site: args.site || defaultSite,
-    author: args.author || "YuRan Chen",
-    institution:
-      args.institution || "Anhui University of Science and Technology",
+    author: args.author || "Anonymous",
+    institution: args.institution || "Anonymous",
     conference: args.conference || "Conference Name",
     description:
       args.description ||

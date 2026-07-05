@@ -16,8 +16,8 @@ npm run new-paper -- ../my-new-paper-site --title "Your Paper Title" --repo my-n
 npm run new-paper -- ../my-new-paper-site \
   --title "Your Paper Title" \
   --repo my-new-paper-site \
-  --author "YuRan Chen" \
-  --institution "Anhui University of Science and Technology" \
+  --author "Anonymous" \
+  --institution "Anonymous" \
   --conference "Conference Name"
 ```
 
